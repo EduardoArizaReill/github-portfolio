@@ -72,3 +72,47 @@ footer {
   padding: 1rem;
   margin-top: 2rem;
 }
+
+#portfolio {
+  padding: 2rem;
+  background: #fafafa;
+}
+
+#portfolio .intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+  color: #007acc;
+  margin-top: 0;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+#portfolio .reflexion {
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+  color: #555;
+}
