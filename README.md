@@ -1,5 +1,5 @@
 <!-- Banner -->
-![Eduardo Ariza Reillo](assest/banner.png)
+![FotoPrueba](assest/banner.png)
 
 # 👋 Competencias
 
@@ -80,5 +80,6 @@
 <p align="center">
   <img src="assest/banner.png" alt="Edu con R2D2 de ThePinkForce" width="400"/>
 </p>
+
 
 
