@@ -1,4 +1,5 @@
-# EduPortFolio
+<!-- Banner -->
+![Eduardo Ariza Reillo](assets/banner.png)
 
 # 👋 Competencias
 
@@ -70,3 +71,12 @@
 
 > *“La tecnología es mi pasión, pero la naturaleza y la aventura son mi refugio.”*
 
+## 📫 Cómo contactarme
+- ✉️ Email: arizareilloeduardo@gmail.com  
+- 💼 LinkedIn: ([https://www.linkedin.com/in/eduardo-ariza-reillo](https://www.linkedin.com/in/eduardo-ariza-reillo-7a880b21a/))
+
+---
+
+<p align="center">
+  <img src="assets/FotoGit.jpg" alt="Edu con R2D2 de ThePinkForce" width="400"/>
+</p>
