@@ -116,3 +116,24 @@ footer {
   font-style: italic;
   color: #555;
 }
+/* --- Estilos para la tarjeta Sprint 4 --- */
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Estilo especial solo para la tarjeta del Sprint 4 */
+.card:nth-child(5) {
+  border-left: 5px solid #007acc; /* Una línea azul para destacar */
+  background: linear-gradient(135deg, #ffffff, #f0f8ff);
+}
+
+.card:nth-child(5) em {
+  color: #007acc;
+  font-weight: bold;
+}
