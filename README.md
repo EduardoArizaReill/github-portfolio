@@ -1,8 +1,5 @@
 # EduPortFolio
 
-<!-- Banner -->
-![Eduardo Ariza Reillo](assets/banner.png)
-
 # 👋 Competencias
 
 🎓 Estudiante de **Ingeniería Informática**  
@@ -72,3 +69,4 @@
 - 🌿 Tengo una conexión profunda con la **naturaleza y los animales**: me inspiran paz, respeto y equilibrio.  
 
 > *“La tecnología es mi pasión, pero la naturaleza y la aventura son mi refugio.”*
+
