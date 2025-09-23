@@ -78,6 +78,7 @@
 ---
 
 <p align="center">
-  <img src="assets/FotoGit.jpg" alt="Edu con R2D2 de ThePinkForce" width="400"/>
+  <img src="assest/banner.png" alt="Edu con R2D2 de ThePinkForce" width="400"/>
 </p>
+
 
