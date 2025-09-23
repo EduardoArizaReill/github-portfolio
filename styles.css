@@ -1,126 +1,198 @@
-/* GENERAL */
-*{
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body{
-  font-family: Roboto;
-  font-weight: 300;
-  font-size: .9rem;
-  line-height: 1.5;
-}
-
-a{
-  text-decoration: none;
-  color: #4472C4;
-}
-
-a:hover{
-  text-decoration: underline;
-}
-
-p{
-  margin: 0 0 1rem;
-}
-
-h1{
-  margin: 0 0 1rem;
-  font-size: 2.5rem;
-  margin-bottom: .5rem;
-}
-
-h2{
-  margin: 0 0 1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.text-blue{
-  color: #4472C4;
-}
-
-.text-darkblue{
-  color: #002060;
-}
-
-.text-uppercase{
-  text-transform: uppercase; 
-}
-
-.icon{
-  margin-right: .5rem;
-}
-
-.cv-container{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: "left-column right-column right-column";
-  width: 1200px;
-  margin: 100px auto;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.section{
-  margin-bottom: 1.5rem;
-}
-
-/* LEFT COLUMN */
-.left-column{
-  grid-area: left-column;
-  padding: 50px;
-  background-color: #4472C4;
-  color: white;
-}
-
-.portait{
-  border-radius: 50%;
-  max-width: 150px;
-  margin: auto;
-  display: block;
-  margin-bottom: 50px;
-}
-
-.skills{
-  list-style-type: none;
-  padding: 0;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  margin: 0 0 1rem;
-}
-
-/* RIGHT COLUMN */
-.right-column{
-  grid-area: right-column;
-  display: grid;
-  grid-template-rows: 250px 1fr;
-  grid-template-areas: 
-    "header"
-    "content";
-}
-
-/* HEADER */
-.header{
-  grid-area: header;
-  padding: 50px;
-  background-color: #F2F2F2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.infos{
-  columns: 2;
-  list-style-type: none;
-  padding: 0;
-}
-
-/* CONTENT */
-.content{
-  grid-area: content;
-  padding: 50px;
-}
-
-.experience-list{
-  list-style-type: circle;
-}
+body {
+				background-image:url(https://manjaro.org/img/bg.svg);
+				background-size: auto;
+				background-color: #f0f0f0;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: -232px 232px;
+				background-attachment: fixed;
+				width: 95%;
+			}
+			#colspan{
+			background-color: white;
+			background-position: center center;
+			box-shadow: 0 0 25px;
+			width: 30%;
+			height: 1127.15px;
+			text-align: justify;
+			float: left;
+			padding: 0 8px;
+			padding-right: 16px;
+			
+			}
+			.container-padding {
+			box-shadow: 0 0 25px;
+			width: 70%;
+			height: 588.2px;
+			background-color: rgb(255, 255, 255);
+			box-sizing: border-box;
+			color: rgb(0, 0, 0);
+			font-family: "Roboto", sans-serif;
+			font-size: 15px;
+			line-height: 22.5px;
+			margin-left: 34%;
+			padding-bottom: 0.15px;
+			padding-left: 16px;
+			padding-top: 0.15px;
+			}
+			
+			.padding { 
+				text-align: left;
+			}
+			.padding-bottom {
+			box-shadow: 0 0 25px;
+			width: 70%;
+			position: bottom;
+			height: 588.2px;
+			background-color: rgb(255, 255, 255);
+			box-sizing: border-box;
+			color: rgb(0, 0, 0);
+			font-family: "Roboto", sans-serif;
+			font-size: 15px;
+			line-height: 22.5px;
+			margin-left: 34%;
+			padding-bottom: 0.15px;
+			padding-left: 16px;
+			padding-top: 0.15px;
+			margin-top: 16px;
+			}
+			
+			
+			
+			.load {
+			background-color: rgb(241, 241, 241);
+			border-bottom-left-radius: 16px;
+			border-bottom-right-radius: 16px;
+			border-top-left-radius: 16px;
+			border-top-right-radius: 16px;
+			box-sizing: border-box;
+			color: rgb(0, 0, 0);
+			font-family: "Roboto", sans-serif;
+			font-size: 12px;
+			line-height: 18px;
+			}
+			.progress {
+			background-color:  #009688 !important;
+			border-bottom-left-radius: 13px;
+			border-bottom-right-radius: 16px;
+			border-top-left-radius: 16px;
+			border-top-right-radius: 16px;
+			box-sizing: border-box;
+			color: rgb(0, 0, 0);
+			font-family: "Roboto", sans-serif;
+			font-size: 12px;
+			line-height: 18px;
+			color:  #ffff !important;
+			text-align: center;
+			}
+			.load2 {
+				background-color: rgb(241, 241, 241);
+				border-bottom-left-radius: 16px;
+				border-bottom-right-radius: 16px;
+				border-top-left-radius: 16px;
+				border-top-right-radius: 16px;
+				box-sizing: border-box;
+				color: rgb(0, 0, 0);
+				font-family: "Roboto", sans-serif;
+				font-size: 12px;
+				line-height: 18px;
+			}
+			
+			
+			.progress2 {
+			background-color:  #009688 !important;
+			border-bottom-left-radius: 16px;
+			border-bottom-right-radius: 16px;
+			border-top-left-radius: 16px;
+			border-top-right-radius: 16px;
+			box-sizing: border-box;
+			color: rgb(0, 0, 0);
+			font-family: "Roboto", sans-serif;
+			font-size: 12px;
+			line-height: 18px;
+			color:  #ffff !important;
+			text-align: center;
+			}
+			.load3 {
+				background-color: rgb(241, 241, 241);
+				border-bottom-left-radius: 16px;
+				border-bottom-right-radius: 16px;
+				border-top-left-radius: 16px;
+				border-top-right-radius: 16px;
+				box-sizing: border-box;
+				color: rgb(0, 0, 0);
+				line-height: 18px;
+			}
+			.progress3 {
+				background-color: #009688 !important;
+				border-bottom-left-radius: 16px;
+				border-bottom-right-radius: 16px;
+				border-top-left-radius: 16px;
+				border-top-right-radius: 16px;
+				color: #fff !important;
+				text-align: center;
+				line-height: 18px;
+				font-size: 12px;
+				
+			}
+			.load4 {
+				background-color: rgb(241, 241, 241);
+				border-bottom-left-radius: 16px;
+				border-bottom-right-radius: 16px;
+				border-top-left-radius: 16px;
+				border-top-right-radius: 16px;
+				box-sizing: border-box;
+				color: rgb(0, 0, 0);
+				line-height: 18px;
+			}
+			.progress4 {
+				background-color: #009688 !important;
+				border-bottom-left-radius: 16px;
+				border-bottom-right-radius: 16px;
+				border-top-left-radius: 16px;
+				border-top-right-radius: 16px;
+				color: #fff !important;
+				text-align: center;
+				line-height: 18px;
+				font-size: 12px;
+			}
+			.content1 { 
+				padding: 14px;
+			}
+			.content2 {
+				padding: 14px;
+			}
+			.content3 {
+				padding: 10px;
+			}
+			.content4 {
+				padding: 16px;
+			}
+			.content5 {
+				padding: 16px;
+			}
+			.content6 {
+				padding: 16px;
+			}
+			img  {
+				size: cover;
+				width: 100%;
+				height: 225.18px;
+				line-height: 1.5px;
+			}
+			
+				
+			h4{
+				color: white;
+				padding: 15px;
+				text-align: left;
+				margin-top: -50px;
+			}
+			i {
+				padding: 5px;
+				color: #009688 !important;
+			}
+			hr {
+				border: -1px solid gray;
+			}
+			
