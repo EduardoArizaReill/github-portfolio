@@ -209,6 +209,22 @@ body{
   font-weight:700;
 }
 
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.4rem;
+  background: #007acc;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #005f99;
+}
+
 /* ===== References */
 .refer-box{ display:flex; gap:4rem; }
 .refer .refer-name{ font-size:1.9rem; margin-bottom:.3rem; }
