@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Rotación de Mapas - Apex Legends</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.alphacoders.com/115/1153343.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.75);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00f0ff;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .map-container {
+      max-width: 700px;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
+
+    .map-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #ffa500;
+    }
+
+    .value {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 2rem auto 0;
+      text-align: center;
+      background-color: #00c0ff;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      width: fit-content;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #00a0d0;
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Rotación de Mapas - Apex Legends</h1>
+
+    <div id="loading" class="loading">Cargando datos...</div>
+    <div class="map-container" id="mapRotation" style="display: none;"></div>
+
+    <a href="apex.html" class="back-btn">← Volver a Apex</a>
+  </div>
+
+  <script>
+    const API_KEY = "5bc9a10216f18a6d3771cb04df7cfd1a";
+  
+    fetch(`https://api.mozambiquehe.re/maprotation?auth=${API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log("📦 JSON recibido:", data);
+  
+        document.getElementById("loading").style.display = "none";
+        const container = document.getElementById("mapRotation");
+        container.style.display = "block";
+  
+        const br = data.battle_royale || data;
+  
+        if (!br || !br.current || !br.next) {
+          container.innerHTML = `<p>Error: No se encontró información de mapas.</p>`;
+          return;
+        }
+  
+        container.innerHTML = `
+          <div class="map-section">
+            <p class="label">🗺️ Mapa actual:</p>
+            <p class="value">${br.current.map}</p>
+          </div>
+          <div class="map-section">
+            <p class="label">⏰ Termina en:</p>
+            <p class="value">${br.current.remainingTimer}</p>
+          </div>
+          <div class="map-section">
+            <p class="label">📅 Desde:</p>
+            <p class="value">${br.current.readableDate_start}</p>
+          </div>
+          <div class="map-section">
+            <p class="label">📅 Hasta:</p>
+            <p class="value">${br.current.readableDate_end}</p>
+          </div>
+          <hr style="margin: 2rem 0; border-color: #888;">
+          <div class="map-section">
+            <p class="label">🔁 Próximo mapa:</p>
+            <p class="value">${br.next.map}</p>
+          </div>
+                    <div class="map-section">
+            <p class="label">⏰ Termina en:</p>
+            <p class="value">${br.next.readableDate_end}</p>
+          </div>
+          <div class="map-section">
+            <p class="label">📅 Desde:</p>
+            <p class="value">${br.next.readableDate_start}</p>
+          </div>
+          <div class="map-section">
+            <p class="label">📅 Hasta:</p>
+            <p class="value">${br.next.readableDate_end}</p>
+          </div>
+        `;
+      })
+      .catch(err => {
+        document.getElementById("loading").innerText = "Error al cargar los mapas.";
+        console.error("❌ Error:", err);
+      });
+  </script>
+</body>
+</html>

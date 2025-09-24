@@ -1,0 +1,32 @@
+GUÍA PARA EJECUTAR TU PROYECTO TRACKERGAMES EN WINDOWS USANDO DOCKER
+====================================================================
+
+1. Instala Docker Desktop si no lo tenés:
+   https://www.docker.com/products/docker-desktop/
+
+2. Abrí una terminal (PowerShell, CMD o terminal de VS Code)
+
+3. Navegá a la carpeta donde está tu proyecto:
+   Por ejemplo:
+   cd C:\Users\TuUsuario\Documents\TrackeGames
+
+4. Asegurate de que el proyecto contiene:
+   - Dockerfile
+   - docker-compose.yml
+   - carpeta initdb con el archivo ScriptBaseDatosTrackerGames.sql
+   - pom.xml y carpeta src/ de tu proyecto Java
+
+5. Construí y ejecutá los contenedores:
+   docker-compose up --build
+
+6. Esperá a que MySQL se levante y cargue la base de datos.
+   La app se abrirá en: http://localhost:8080
+
+7. Para detener todo:
+   docker-compose down
+
+NOTA:
+- La base de datos se llama: trackergames
+- Usuario root / contraseña root
+- Puerto MySQL: 3306
+- Puerto App: 8080

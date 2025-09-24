@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro - TrackerGames</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(60deg, #ff4500, #007bff);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1rem;
+      margin-top: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #1abc9c;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #16a085;
+    }
+    #registerResult {
+      margin-top: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    .link-button {
+      background: none;
+      border: none;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 1rem;
+      display: block;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: #ccc;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TrackerGames</h1>
+    <p>Regístrate para comenzar a trackear tus partidas</p>
+  </header>
+
+  <div class="container">
+    <h2>Registro de Usuario</h2>
+    <form id="registerForm">
+      <input type="text" id="name" name="name" placeholder="Usuario" required />
+      <input type="password" id="pass" name="pass" placeholder="Contraseña" required />
+      <button type="submit">Registrarse</button>
+    </form>
+    <a href="index.html" class="link-button">← Volver al inicio</a>
+    <p id="registerResult"></p>
+  </div>
+
+  <footer>
+    &copy; 2025 TrackerGames. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const pass = document.getElementById("pass").value;
+
+      try {
+        const response = await fetch("http://localhost:8080/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, pass })
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          document.getElementById("registerResult").textContent = "Registro exitoso. Redirigiendo...";
+          setTimeout(() => {
+            window.location.href = "trackergames.html";
+          }, 1000);
+        } else {
+          const error = await response.text();
+          document.getElementById("registerResult").textContent = "Error: " + error;
+        }
+      } catch (err) {
+        document.getElementById("registerResult").textContent = "Error de conexión con el servidor.";
+      }
+    });
+  </script>
+</body>
+</html>

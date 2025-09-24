@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estado de Servidores - Apex Legends</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/ss_24d35884c9c4323f0413ef31e5d5c2a5563a70a8.1920x1080.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #FF5757;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    .server {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      margin: 1rem auto;
+      max-width: 600px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+    }
+
+    .status-up {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .status-down {
+      color: #FF3B3B;
+      font-weight: bold;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin: 2rem auto;
+      text-align: center;
+      background-color: #FF5757;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #e54242;
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Estado de Servidores de Apex Legends</h1>
+
+    <div class="loading" id="loading">Cargando información...</div>
+    <div id="serverStatus"></div>
+
+    <div style="text-align:center;">
+      <a href="apex.html" class="back-btn">← Volver a Apex</a>
+    </div>
+  </div>
+
+  <script>
+    const API_KEY = "5bc9a10216f18a6d3771cb04df7cfd1a";
+
+    fetch("https://api.mozambiquehe.re/servers?auth=" + API_KEY)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("loading").style.display = "none";
+        const container = document.getElementById("serverStatus");
+
+        for (const key in data) {
+          const regionData = data[key];
+          for (const location in regionData) {
+            const info = regionData[location];
+
+            const div = document.createElement("div");
+            div.classList.add("server");
+
+            div.innerHTML = `
+              <h2>${key.replaceAll("_", " ")}</h2>
+              <p><strong>Ubicación:</strong> ${location}</p>
+              <p><strong>Estado:</strong> 
+                <span class="${info.Status === 'UP' ? 'status-up' : 'status-down'}">
+                  ${info.Status || "Desconocido"}
+                </span>
+              </p>
+              <p><strong>Tiempo de respuesta:</strong> ${info.ResponseTime || "No disponible"}</p>
+            `;
+
+            container.appendChild(div);
+          }
+        }
+      })
+      .catch(error => {
+        document.getElementById("loading").innerText = "Error al cargar los datos.";
+        console.error("Error:", error);
+      });
+  </script>
+</body>
+</html>

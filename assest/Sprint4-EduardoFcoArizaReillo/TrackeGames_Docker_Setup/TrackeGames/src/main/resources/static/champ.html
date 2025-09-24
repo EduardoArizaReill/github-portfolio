@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campeones Gratuitos - League of Legends</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+    .champ-list {
+      max-width: 1000px;
+      margin: 1rem auto 3rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .champ {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      padding: 1rem;
+      width: 150px;
+      transition: transform 0.2s;
+    }
+    .champ:hover {
+      transform: scale(1.05);
+    }
+    .champ img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .champ p {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      background: #222;
+      color: #ccc;
+    }
+    .back-link {
+      display: block;
+      margin-top: 1.5rem;
+      text-align: center;
+      text-decoration: none;
+      color: #007bff;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Campeones Gratuitos</h1>
+    <p>Campeones disponibles esta semana para todos los jugadores y para nuevos jugadores (Nivel ≤ 10)</p>
+  </header>
+
+  <h2 class="section-title">Para todos los jugadores</h2>
+  <div class="champ-list" id="champList"></div>
+
+  <h2 class="section-title">Para nuevos jugadores (nivel 10 o menor)</h2>
+  <div class="champ-list" id="champListNew"></div>
+
+  <a href="league.html" class="back-link">← Volver a League</a>
+
+  <footer>
+    &copy; 2025 TrackerGames. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const API_KEY = "RGAPI-39bab37e-4cc6-4071-a44b-550515ebc341";
+
+    async function loadFreeChampions() {
+      try {
+        const [freeRes, allRes] = await Promise.all([
+          fetch("https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + API_KEY),
+          fetch("https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json")
+        ]);
+
+        const freeData = await freeRes.json();
+        const champData = await allRes.json();
+
+        const champList = Object.values(champData.data);
+        const champMap = {};
+        champList.forEach(c => champMap[parseInt(c.key)] = c);
+
+        const container = document.getElementById("champList");
+        const containerNew = document.getElementById("champListNew");
+        container.innerHTML = "";
+        containerNew.innerHTML = "";
+
+        freeData.freeChampionIds.forEach(id => {
+          const champ = champMap[id];
+          if (champ) {
+            const champCard = document.createElement("div");
+            champCard.className = "champ";
+            champCard.innerHTML = `
+              <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${champ.image.full}" alt="${champ.name}" />
+              <p>${champ.name}</p>
+            `;
+            container.appendChild(champCard);
+          }
+        });
+
+        freeData.freeChampionIdsForNewPlayers.forEach(id => {
+          const champ = champMap[id];
+          if (champ) {
+            const champCard = document.createElement("div");
+            champCard.className = "champ";
+            champCard.innerHTML = `
+              <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${champ.image.full}" alt="${champ.name}" />
+              <p>${champ.name}</p>
+            `;
+            containerNew.appendChild(champCard);
+          }
+        });
+
+      } catch (err) {
+        document.getElementById("champList").innerHTML = "<p>Error al cargar campeones.</p>";
+        document.getElementById("champListNew").innerHTML = "";
+      }
+    }
+
+    window.onload = loadFreeChampions;
+  </script>
+</body>
+</html>

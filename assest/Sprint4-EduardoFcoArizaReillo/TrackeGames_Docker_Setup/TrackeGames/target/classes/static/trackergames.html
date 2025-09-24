@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrackerGames - Selección</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(60deg, #ff4500, #007bff);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .description {
+      max-width: 800px;
+      margin: 2rem auto;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      padding: 0 1rem;
+    }
+    .options {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex: 1 1 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      background-color: #1abc9c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #16a085;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: #ccc;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TrackerGames</h1>
+    <p>Elige el juego que deseas explorar</p>
+  </header>
+
+  <div class="description">
+    <p>Bienvenido a TrackerGames, tu centro de control para seguir estadísticas, rotaciones de mapas, campeones gratuitos y mucho más sobre tus juegos favoritos: League of Legends y Apex Legends. Consulta en tiempo real la información más relevante, explora los perfiles de jugadores y mantente al día con las últimas novedades. ¡Todo en un solo lugar!</p>
+  </div>
+
+  <div class="options">
+    <div class="card">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg" alt="Apex Legends">
+      <h3>Apex Legends</h3>
+      <p>Explora tus estadísticas y avances en Apex Legends.</p>
+      <a href="apex.html" class="btn">Ver Apex</a>
+    </div>
+    <div class="card">
+      <img src="https://www.creativeuncut.com/gallery-26/art/lol-dominion-cover-art.jpg" alt="League of Legends">
+      <h3>League of Legends</h3>
+      <p>Consulta tu rendimiento y progreso en la Grieta del Invocador.</p>
+      <a href="league.html" class="btn">Ver League</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 TrackerGames. Todos los derechos reservados.
+  </footer>
+</body>
+</html>

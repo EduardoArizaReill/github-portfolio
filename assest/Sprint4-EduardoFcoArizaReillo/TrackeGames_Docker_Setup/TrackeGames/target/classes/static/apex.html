@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apex Legends - TrackerGames</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    header {
+      background-image: url('https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1rem;
+      box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.5);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 2rem;
+      color: #222;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    a.btn, button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #1abc9c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+
+    a.btn:hover, button:hover {
+      background-color: #16a085;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .result {
+      white-space: pre-wrap;
+      background-color: #f4f4f4;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: #ccc;
+      margin-top: 2rem;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Apex Legends</h1>
+    <p>Consulta información oficial y perfiles de jugadores</p>
+  </header>
+
+  <div class="container">
+    <div class="btn-group">
+      <a href="servidor.html" class="btn">Estado de servidores</a>
+      <a href="mapas.html" class="btn">Rotación de mapas</a>
+      <a href="https://api.mozambiquehe.re/news?auth=5bc9a10216f18a6d3771cb04df7cfd1a" target="_blank" class="btn">Eventos activos</a>
+    </div>
+
+  <div class="container">
+    <h2>Buscar jugador</h2>
+    <input type="text" id="player" placeholder="Nombre de jugador">
+    <select id="platform">
+      <option value="PC">PC</option>
+      <option value="PS4">PS4</option>
+      <option value="X1">Xbox</option>
+    </select>
+
+
+
+    <button onclick="getPlayerStats()">Buscar perfil</button>
+
+    <div id="result" class="result"></div>
+    <p id="saveStatus" style="color: green; font-weight: bold; text-align: center;"></p>
+
+    <a href="trackergames.html" class="back-link">← Volver a TrackerGames</a>
+  </div>
+
+  <footer>
+    &copy; 2025 TrackerGames. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const API_KEY = "5bc9a10216f18a6d3771cb04df7cfd1a";
+
+    async function getPlayerStats() {
+      const name = document.getElementById("player").value.trim();
+      const platform = document.getElementById("platform").value;
+      const result = document.getElementById("result");
+      const saveStatus = document.getElementById("saveStatus");
+
+      if (!name) {
+        result.innerHTML = "<p style='color:red;'>Introduce un nombre de jugador.</p>";
+        return;
+      }
+
+      result.innerHTML = "<p>Cargando datos...</p>";
+      saveStatus.innerHTML = "";
+
+      try {
+        const res = await fetch(`https://api.mozambiquehe.re/bridge?auth=${API_KEY}&player=${name}&platform=${platform}`);
+        const data = await res.json();
+
+        const playerName = data.global?.name || "Desconocido";
+        const rankName = data.global?.rank?.rankName || "Sin rango";
+        const legendName = data.legends?.selected?.LegendName || "Desconocida";
+
+        result.innerHTML = `
+          <div style="background:#222;padding:20px;border-radius:10px;color:white;max-width:400px;margin:auto;box-shadow:0 0 15px rgba(0,0,0,0.5);">
+            <h3>👤 Nombre: <span style="color:deepskyblue">${playerName}</span></h3>
+            <h4>🏆 Rango: <span style="color:gold">${rankName}</span></h4>
+            <h4>🎯 Leyenda principal: <span style="color:lightgreen">${legendName}</span></h4>
+          </div>
+        `;
+        
+        if (playerName === "Desconocido") {
+          result.innerHTML += `<p style='color:orange;'>⚠️ Jugador inválido. No se guardarán los datos.</p>`;
+          return; // detenemos aquí
+        }
+
+        // Enviar al backend
+        const saveResponse = await fetch("http://localhost:8080/auth/apex/save", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          
+          body: JSON.stringify({
+            player_name: playerName,
+            ranked: rankName,
+            selected_character: legendName
+          })
+        });
+
+      
+        if (saveResponse.ok) {
+          saveStatus.textContent = "✅ Datos guardados correctamente.";
+        } else {
+          saveStatus.textContent = "⚠️ Error al guardar en la base de datos.";
+        }
+
+      } catch (error) {
+        console.error("❌ Error:", error);
+        result.innerHTML = `<p style="color:red;">Error al obtener los datos del jugador.</p>`;
+        saveStatus.textContent = "";
+      }
+    }
+  </script>
+</body>
+</html>

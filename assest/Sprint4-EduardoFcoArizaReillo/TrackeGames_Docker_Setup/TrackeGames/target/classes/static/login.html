@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .link-button {
+      background-color: transparent;
+      color: #2196F3;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 15px;
+    }
+
+    #loginResult {
+      margin-top: 15px;
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm" action="/login">
+      <input type="text" id="name" name="name" placeholder="Usuario" required>
+      <input type="password" id="pass" name="pass" placeholder="Contraseña" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <button class="link-button" onclick="window.location.href='register.html'">¿No tienes cuenta? Regístrate</button>
+    <p id="loginResult"></p>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const pass = document.getElementById("pass").value;
+
+      try {
+        const response = await fetch("http://localhost:8080/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, pass })
+        });
+
+        const result = await response.text();
+
+        if (response.ok) {
+          window.location.href = "trackergames.html";
+        } else {
+          document.getElementById("loginResult").textContent = "Usuario o contraseña incorrectos.";
+        }
+      } catch (err) {
+        document.getElementById("loginResult").textContent = "Error al conectar con el servidor.";
+      }
+    });
+  </script>
+</body>
+</html>

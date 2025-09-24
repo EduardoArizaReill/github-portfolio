@@ -1,0 +1,8 @@
+Para ejecutar el Docker estoy usando Windows y Docker Desktop > es importante ver primero la versión de java para eso primero:
+Click en la carpeta de Docker > abrir en terminal > java -versión y tiene que ser de 21 pa arriba > Ahora con el Docker Dektop abierto ponemos en el cmd > docker-compose down >docker-compose up --build > Al poner esto en el Docker Desktop se inicia directamente mi TrackerGames > poner en internet > http://localhost:8080/ (para la pag principal) > http://localhost:8080/trackergames.html para la segunda página y de aquí ya podemos navegar
+
+POR EL AMOR DE DIOS SI SE QUIERE REINICIAR PONER docker-compose down
+
+IMPORTANTE: PARA CUANDO LO TENGAS QUE EJECUTAR VAS A NECESITAR UNA NUEVA API KEY DEL LEAGUE OF LEGEDS (LA DE APEX SIEMPRE FUNCINA PERO LA DEL LOL SE REINICIA TODOS LOS DÍAS A LAS 00:00)
+
+Obtener nueva api lol > En Docker Desktop darle a View Configuration > Open in IDE (Que tendrías que tener el visual ya que en el sprint 3 te digo como se soluciona) y en xxx/xxx/Docker\TrackeGames_Docker_Setup\TrackeGames\src\main\resources\static > las champ.html y league.html hay que cambiar la parte de la API KEY

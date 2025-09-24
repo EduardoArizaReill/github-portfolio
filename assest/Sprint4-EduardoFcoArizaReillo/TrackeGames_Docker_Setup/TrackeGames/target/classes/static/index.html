@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrackerGames</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(60deg, #ff4500, #007bff);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin: 0 0 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    header p {
+      font-size: 1.2rem;
+      margin: 0 0 2rem;
+    }
+    header a.button {
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background 0.3s, color 0.3s;
+      display: inline-block;
+    }
+    header a.button:hover {
+      background: #000;
+      color: #fff;
+    }
+    .games {
+      max-width: 1000px;
+      margin: 2rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 1rem;
+    }
+    .game {
+      margin: 1rem;
+      text-align: center;
+      flex: 1 1 300px;
+    }
+    .game a {
+      display: block;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .game img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .game img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+    .game h3 {
+      margin: 0.5rem 0 0.5rem;
+      font-size: 1.25rem;
+    }
+    .game p {
+      font-size: 0.95rem;
+      margin: 0.5rem 0 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TrackerGames</h1>
+    <p>¡Bienvenido a TrackerGames! Lleva un registro de tu progreso y estadísticas en tus juegos favoritos.</p>
+    <a href="register.html" class="button">Regístrate</a>
+  </header>
+  <main>
+    <section class="games">
+      <div class="game">
+        <a href="https://www.ea.com/es/games/apex-legends/apex-legends" target="_blank">
+          <img src="https://apexlegends.wiki.gg/images/thumb/7/74/S2_keyart.jpg/1280px-S2_keyart.jpg?a0db2d" alt="Apex Legends" />
+        </a>
+        <h3>Apex Legends</h3>
+        <p>Consulta tu desempeño en este Battle Royale de ritmo frenético.</p>
+      </div>
+      <div class="game">
+        <a href="https://www.leagueoflegends.com/en-us/?utm_medium=card1%2Bwww.leagueoflegends.com&utm_source=riotbar" target="_blank">
+          <img src="https://www.creativeuncut.com/gallery-26/art/lol-dominion-cover-art.jpg" alt="League of Legends" />
+        </a>
+        <h3>League of Legends</h3>
+        <p>Monitorea tus partidas MOBA y mejora tu estrategia en la Grieta.</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 TrackerGames. Todos los derechos reservados.
+  </footer>
+</body>
+</html>

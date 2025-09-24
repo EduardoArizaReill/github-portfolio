@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_trackergames
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: trackergames
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+  app:
+    build: .
+    container_name: trackergames_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - backend
+
+networks:
+  backend:

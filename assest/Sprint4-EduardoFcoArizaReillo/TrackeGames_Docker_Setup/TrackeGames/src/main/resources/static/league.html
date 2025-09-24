@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>League of Legends - TrackerGames</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+    header {
+      background-image: url('https://www.creativeuncut.com/gallery-26/art/lol-dominion-cover-art.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+      padding: 6rem 1rem;
+      box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.5);
+    }
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    }
+    h2 {
+      color: #00bfff;
+      text-align: center;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    a.btn, button {
+      padding: 0.8rem 1.6rem;
+      background-color: #007acc;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    a.btn:hover, button:hover {
+      background-color: #005f99;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.6rem 0;
+      border-radius: 6px;
+      border: 1px solid #888;
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+    }
+    .result {
+      background-color: #121212;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+      border: 1px solid #333;
+      color: #ddd;
+    }
+    .result p {
+      margin: 0.5rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #000;
+      color: #aaa;
+      margin-top: 2rem;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #1e90ff;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>League of Legends</h1>
+    <p>Consulta campeones gratuitos y maestría con la API de Riot</p>
+  </header>
+  <div class="container">
+    <div class="btn-group">
+      <a href="champ.html" class="btn">Campeones Gratuitos</a>
+      <a href="versions.html" class="btn">Versiones Disponibles</a>
+    </div>
+    <h2>Buscar jugador y campeón</h2>
+    <input type="text" id="region" placeholder="Región (europe, americas...)">
+    <input type="text" id="gameName" placeholder="Nombre del jugador (gameName)">
+    <input type="text" id="tagLine" placeholder="Tag del jugador (p.ej: EUW)">
+    <input type="text" id="champion" placeholder="Nombre del campeón (p.ej: Yasuo)">
+    <button onclick="getChampionMastery()">Buscar maestría</button>
+    <div id="result" class="result"></div>
+    <a href="trackergames.html" class="back-link">← Volver a TrackerGames</a>
+  </div>
+  <footer>
+    &copy; 2025 TrackerGames. Todos los derechos reservados.
+  </footer>
+<!-- Este es el bloque dentro del script, reemplaza solo esta parte -->
+<script>
+  const API_KEY = "RGAPI-39bab37e-4cc6-4071-a44b-550515ebc341";
+
+  async function getChampionMastery() {
+    const region = document.getElementById("region").value.trim();
+    const gameName = document.getElementById("gameName").value.trim();
+    const tagLine = document.getElementById("tagLine").value.trim();
+    const champion = document.getElementById("champion").value.trim();
+    const result = document.getElementById("result");
+
+    if (!region || !gameName || !tagLine || !champion) {
+      result.innerHTML = "<p style='color:red;'>Por favor, completa todos los campos.</p>";
+      return;
+    }
+
+    result.innerHTML = "<p>Cargando datos...</p>";
+
+    const regionRouting = { europe: "euw1", americas: "na1", asia: "kr" };
+    const regionHost = regionRouting[region] || region;
+
+    try {
+      const accountUrl = `https://${region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${API_KEY}`;
+      const accRes = await fetch(accountUrl);
+      const accData = await accRes.json();
+
+      if (!accData.puuid) {
+        result.innerHTML = "<p style='color:orange;'>⚠️ Jugador no encontrado. No se guardarán datos.</p>";
+        return;
+      }
+
+      const puuid = accData.puuid;
+
+      const champListRes = await fetch("https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json");
+      const champData = await champListRes.json();
+      const champInfo = Object.values(champData.data).find(c => c.name.toLowerCase() === champion.toLowerCase());
+
+      if (!champInfo) {
+        result.innerHTML = "<p style='color:red;'>⚠️ Campeón no encontrado.</p>";
+        return;
+      }
+
+      const champId = champInfo.key;
+      const champName = champInfo.name;
+
+      const masteryUrl = `https://${regionHost}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/by-champion/${champId}?api_key=${API_KEY}`;
+      const masteryRes = await fetch(masteryUrl);
+      const mastery = await masteryRes.json();
+
+      const puntos = mastery.championPoints || 0;
+      const nivel = mastery.championLevel || 0;
+      const ultimaPartida = mastery.lastPlayTime ? new Date(mastery.lastPlayTime).toLocaleString() : "Desconocida";
+
+      result.innerHTML = `
+        <p><strong>PUUID:</strong> ${puuid}</p>
+        <p><strong>Región:</strong> ${region}</p>
+        <p><strong>Nombre (gameTag):</strong> ${gameName}</p>
+        <p><strong>TagLine:</strong> ${tagLine}</p>
+        <p><strong>Campeón:</strong> ${champName}</p>
+        <p><strong>Nivel del campeón:</strong> ${nivel}</p>
+        <p><strong>Puntos de Maestría:</strong> ${puntos}</p>
+        <p><strong>Última partida:</strong> ${ultimaPartida}</p>
+      `;
+
+      // Enviar a la API de Spring Boot
+      fetch("http://localhost:8080/auth/league/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          puuid: puuid,
+          region: region,
+          game_tag: gameName,
+          tag_line: tagLine,
+          champion_name: champName,
+          champion_level: nivel,
+          champion_points: puntos
+        })
+      })
+      
+      .then(res => {
+        if (res.ok) {
+          result.innerHTML += `<p style='color:lightgreen;'>✅ Datos guardados correctamente.</p>`;
+        } else {
+          result.innerHTML += `<p style='color:orange;'>⚠️ Error al guardar en la base de datos.</p>`;
+        }
+      })
+      .catch(err => {
+        console.error("❌ Error al enviar datos:", err);
+        result.innerHTML += `<p style='color:orange;'>⚠️ Error al guardar en la base de datos.</p>`;
+      });
+
+    } catch (err) {
+      console.error("❌ Error general:", err);
+      result.innerHTML = "<p style='color:red;'>❌ Error al obtener datos del jugador.</p>";
+    }
+  }
+</script>
+</body>
+</html>
